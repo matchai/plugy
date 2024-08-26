@@ -2,9 +2,7 @@ name: Build and Test
 
 on:
   push:
-    branches: [ "main" ]
   pull_request:
-    branches: [ "main" ]
 
 env:
   CARGO_TERM_COLOR: always
@@ -28,6 +26,11 @@ jobs:
       run: cargo build -p plugy-runtime --verbose 
     - name: Test runtime
       run: cargo test -p plugy-runtime --verbose
+    - name: Build example
+      run: cargo build --target wasm32-unknown-unknown
+    - name: Test example
+      run: cargo run -p runner
+
   clippy:
     runs-on: ubuntu-latest
 
